@@ -21,6 +21,7 @@ import { LocaleProvider } from 'antd';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 
 //css
+import './static/css/reset.min.css';
 import './static/css/common.less';
 
 
