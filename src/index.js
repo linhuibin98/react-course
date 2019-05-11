@@ -1,12 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+// redux... store
+import { Provider } from 'react-redux';
+import store from './store';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+//router
+import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+//routes
+import Home from './routes/home';
+import MyCourse from './routes/mycourse';
+import Person from './routes/person';
+
+//component
+import NavTop from './component/NavTop';
+import NavBottom from './component/NavBottom';
+
+//antd
+import { LocaleProvider } from 'antd';
+import zh_CN from 'antd/lib/locale-provider/zh_CN';
+
+//css
+import './static/css/common.less';
+
+
+ReactDOM.render((
+  <Provider store={ store }>
+    <HashRouter>
+      <LocaleProvider locale={ zh_CN }>
+        <div>
+          <NavTop />
+          <Switch>
+            <Route path='/' exact component={ Home } />
+            <Route path='/person' component={ Person } />
+            <Route path='/mycourse' component={ MyCourse } />
+            <Redirect from='/home' to='/' />
+          </Switch>
+          <NavBottom />
+        </div>
+      </LocaleProvider>
+    </HashRouter>
+  </Provider>
+), document.getElementById('root'));
