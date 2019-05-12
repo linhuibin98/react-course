@@ -14,6 +14,12 @@ html {
 /* nav-top */
 .headerNavBox {
   @BG: #2A2A2A;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
   height: 1.12rem;
   background-color: @BG;
   color: #fff;
@@ -22,7 +28,6 @@ html {
     height: 100%;
 
     .baseBox {
-      position: relative;
       height: 100%;
 
       .logo {
@@ -57,4 +62,47 @@ html {
       }
     }
   }
+}
+
+/* nav-footer */
+.footerNavBox {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.06rem;
+  line-height: 1.06rem;
+  border-top: .02rem solid #d5d5d5;
+
+  .footer-group {
+    display: flex;
+    justify-content: space-around;
+
+    .footer-group-item {
+      a {
+        color: #2A2A2A;
+
+        &.active {
+          color: red;
+        }
+      }
+
+      i {
+        display: block;
+        height: .5rem;
+        font-size: .44rem;
+      }
+      span {
+        display: block;
+        height: .5rem;
+        line-height: .5rem;
+        font-size: .32rem;
+      }
+    }
+  }
+}
+
+/* container */
+.container {
+  padding: 1.12rem 0 1.08rem 0;
 }
