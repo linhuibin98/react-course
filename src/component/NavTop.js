@@ -10,11 +10,11 @@ import Transition from 'react-transition-group/Transition';
 const duration = 300,
       defaultStyle = {
         transition: `opacity ${duration}ms`,
-        opacity: 0
+        opacity: 0,
       },
       transitionStyles = {
-        entering: { opacity: 0 },
-        entered: { opacity: 1 }
+        entering: { opacity: 0},
+        entered: { opacity: 1}
       };
 
 export class NavTop extends Component {

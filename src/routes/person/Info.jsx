@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom';
 
 export class Info extends Component {
-  static propTypes = {
-    
-  }
 
   render() {
     return (
@@ -24,4 +21,4 @@ const mapDispatchToProps = {
   
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Info)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Info))
