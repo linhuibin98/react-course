@@ -35,7 +35,7 @@ export class NavTop extends Component {
             <Icon className='icon' type='bars' style={{ fontSize: '.6rem' }} onClick={ this.changeIn } />
           </div>
 
-          <Transition in={ this.state.in }>
+          <Transition in={ this.state.in } timeout={{}}>
             {
               state => {
                 return (

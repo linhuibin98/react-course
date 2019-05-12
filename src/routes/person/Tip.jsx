@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-export class MyCourse extends Component {
+export class Tip extends Component {
   static propTypes = {
     
   }
 
   render() {
     return (
-      <div className='container'>
-        myCourse
+      <div>
+        Tip
       </div>
     )
   }
@@ -24,4 +24,4 @@ const mapDispatchToProps = {
   
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyCourse)
+export default connect(mapStateToProps, mapDispatchToProps)(Tip)

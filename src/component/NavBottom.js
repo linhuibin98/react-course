@@ -26,7 +26,7 @@ export class NavBottom extends Component {
             </NavLink>
           </li>
           <li className='footer-group-item'>
-            <NavLink to='/person'>
+            <NavLink to='/person/info'>
               <Icon type='user' />
               <span>个人中心</span>
             </NavLink>

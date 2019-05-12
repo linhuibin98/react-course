@@ -32,10 +32,10 @@ ReactDOM.render((
         <div>
           <NavTop />
           <Switch>
-            <Route path='/home' exact component={ Home } />
+            <Route path='/home' component={ Home } />
             <Route path='/person' component={ Person } />
             <Route path='/mycourse' component={ MyCourse } />
-            <Redirect from='/' to='/home' />
+            <Redirect to='/home' />
           </Switch>
           <NavBottom />
         </div>
