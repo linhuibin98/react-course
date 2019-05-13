@@ -41,7 +41,8 @@ export class NavTop extends Component {
                 return (
                   <ul className='filterBox' style={{
                     ...defaultStyle,
-                    ...transitionStyles[state]
+                    ...transitionStyles[state],
+                    display: this.state.in ? 'block' : 'none'
                   }}>
                     <li>全部课程</li>
                     <li>Vue</li>
