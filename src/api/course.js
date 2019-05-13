@@ -14,3 +14,8 @@ export function login(payload) {
 export function getUserInfo() {
   return axios.get('/personal/info');
 }
+
+// 退出登录
+export function exitLogin() {
+  return axios.get('/personal/out');
+}

@@ -2,32 +2,35 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 import { List, Button } from 'antd';
+import action from '../../store/action';
+import { exitLogin } from '../../api/course';
+import { async } from 'q';
 
-import { getUserInfo } from '../../api/course';
 
 export class Info extends Component {
-  constructor() {
-    super();
-    this.state = {
-      data: []
+
+  componentWillMount() {
+    let { userInfo, queryUserInfo } = this.props;
+    if (!userInfo) {
+      queryUserInfo();
     }
   }
 
-  async componentDidMount() {
-    let { data } = await getUserInfo();
-    this.setState({
-      data: [`用户名：${data.nick}`, `Email：${data.email}`, `电话：${data.phone}`]
-    })
-  }
-
   render() {
+    let { userInfo } = this.props;
+    if (!userInfo) return '';
+    let data = userInfo.data;
+    data = [`用户名：${data.nick}`, `Email：${data.email}`, `电话：${data.phone}`]
     return (
       <div>
         <List
           header={<div style={{ textAlign: 'center' }}>个人中心</div>}
-          footer={<Button type="danger" size='large' style={{ width: '100%', height: '100%' }}>退出登录</Button>}
+          footer={<Button type="danger" size='large' style={{ width: '100%', height: '100%' }} onClick={async () => {
+            await exitLogin();
+            this.props.history.push('/');
+          }}>退出登录</Button>}
           bordered
-          dataSource={this.state.data}
+          dataSource={data}
           renderItem={item => (
             <List.Item>
               {item}
@@ -40,11 +43,8 @@ export class Info extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  
+  ...state.person
 })
 
-const mapDispatchToProps = {
-  
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Info))
+export default connect(mapStateToProps, action.person)(withRouter(Info))
