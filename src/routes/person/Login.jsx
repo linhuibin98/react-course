@@ -13,10 +13,12 @@ export class Login extends Component {
 
    loginTip = (msg) => {
     let secondsToGo = 5;
+    
     const modal = Modal.success({
       title: msg.title,
       content: msg.content,
     });
+
     const timer = setInterval(() => {
       secondsToGo -= 1;
       modal.update({
@@ -25,6 +27,7 @@ export class Login extends Component {
     }, 1000);
 
     setTimeout(() => {
+      this.props.history.push('/person');
       clearInterval(timer);
       modal.destroy();
     }, secondsToGo * 1000);

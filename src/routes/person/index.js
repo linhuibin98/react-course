@@ -25,6 +25,12 @@ export class Person extends Component {
     this.setState({ isLogin });
   }
 
+  async componentWillUpdate() {
+    let result = await checkLogin();
+    let isLogin = parseFloat(result.code) === 0 ? true : false;
+    this.setState({ isLogin });
+  }
+
   render() {
     return (
       <div className='container'>
