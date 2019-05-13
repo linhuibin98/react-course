@@ -9,3 +9,8 @@ export function checkLogin() {
 export function login(payload) {
   return axios.post('/personal/login', payload);
 }
+
+// 获取个人信息
+export function getUserInfo() {
+  return axios.get('/personal/info');
+}
