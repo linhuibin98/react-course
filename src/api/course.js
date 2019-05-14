@@ -21,7 +21,11 @@ export function exitLogin() {
 }
 
 // 注册
-
 export function userRegister(payload) {
   return axios.post('/personal/register', payload);
+}
+
+// 获取首页轮播图数据
+export function homeCarouselData() {
+  return axios.get('/course/banner');
 }

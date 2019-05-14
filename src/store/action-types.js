@@ -1,1 +1,2 @@
 export const GET_USER_INFO = 'GET_USER_INFO';
+export const GET_COURSE_CAROUSEL = 'GET_COURSE_CAROUSEL';

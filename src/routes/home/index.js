@@ -1,16 +1,19 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import List from './List.jsx';
+import Detail from './Detail.jsx';
 
 export class Home extends Component {
-  static propTypes = {
-    
-  }
 
   render() {
     return (
       <div className='container'>
-        Home
+        <Switch>
+          <Route path='/home/list' component={ List } />
+          <Route path='/home/detail' component={ Detail } />
+          <Redirect to='/home/list' />
+        </Switch>
       </div>
     )
   }
