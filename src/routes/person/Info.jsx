@@ -12,13 +12,14 @@ export class Info extends Component {
     let { userInfo, queryUserInfo } = this.props;
     if (!userInfo) {
       queryUserInfo();
+    }
   }
 
   render() {
     let { userInfo } = this.props;
     if (!userInfo) return '';
     let data = userInfo.data;
-    data = [`用户名：${data.nick}`, `Email：${data.email}`, `电话：${data.phone}`]
+    data = [`用户名：${data.name}`, `Email：${data.email}`, `电话：${data.phone}`]
     return (
       <div>
         <List

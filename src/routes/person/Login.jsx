@@ -41,7 +41,7 @@ export class Login extends Component {
         let { username, password} = values;
         password = md5(password);
         let result = await login({
-          username,
+          name: username,
           password
         });
 
