@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 import md5 from 'blueimp-md5';
 import { login } from '../../api/course';
+import action from '../../store/action';
 
 
 export class Login extends Component {
@@ -43,8 +44,9 @@ export class Login extends Component {
           username,
           password
         });
-        console.log(result);
+
         if (parseFloat(result.code) === 0) {
+          this.props.queryUserInfo();
           this.loginTip({
             title: '登录成功',
             content: '即将跳转...'
@@ -99,7 +101,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  
+  ...action.person
 }
 
 const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(Login);

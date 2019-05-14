@@ -19,3 +19,9 @@ export function getUserInfo() {
 export function exitLogin() {
   return axios.get('/personal/out');
 }
+
+// 注册
+
+export function userRegister(payload) {
+  return axios.post('/personal/register', payload);
+}

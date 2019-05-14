@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { List, Button } from 'antd';
 import action from '../../store/action';
 import { exitLogin } from '../../api/course';
-import { async } from 'q';
 
 
 export class Info extends Component {
@@ -13,7 +12,6 @@ export class Info extends Component {
     let { userInfo, queryUserInfo } = this.props;
     if (!userInfo) {
       queryUserInfo();
-    }
   }
 
   render() {

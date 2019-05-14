@@ -25,7 +25,7 @@ export class Person extends Component {
     this.setState({ isLogin });
   }
 
-  async componentWillUpdate() {
+  async componentWillReceiveProps() {
     let result = await checkLogin();
     let isLogin = parseFloat(result.code) === 0 ? true : false;
     this.setState({ isLogin });
