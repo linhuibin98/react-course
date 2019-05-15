@@ -29,3 +29,11 @@ export function userRegister(payload) {
 export function homeCarouselData() {
   return axios.get('/course/banner');
 }
+
+// 获取课程列表信息
+
+export function queryCourseList(payload) {
+  return axios.get('/course/list', {
+    params: payload
+  })
+}
