@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Icon } from 'antd';
+import action from '../store/action';
 
 /* transition */
 import Transition from 'react-transition-group/Transition';
@@ -25,6 +25,20 @@ export class NavTop extends Component {
     }
   }
 
+  handleClick = (evt) => {
+    if (evt.target.tagName === 'LI') {
+      let type = evt.target.getAttribute('type');
+      this.props.queryList({
+        type,
+        page: 1,
+        flag: 'replace'
+      })
+      this.setState({
+        in: false
+      })
+    }
+  }
+
   render() {
     return (
       <div className='headerNavBox'>
@@ -43,11 +57,11 @@ export class NavTop extends Component {
                     ...defaultStyle,
                     ...transitionStyles[state],
                     display: this.state.in ? 'block' : 'none'
-                  }}>
-                    <li>全部课程</li>
-                    <li>Vue</li>
-                    <li>React</li>
-                    <li>小程序</li>
+                  }} onClick={this.handleClick}>
+                    <li type='all'>全部课程</li>
+                    <li type='vue'>Vue</li>
+                    <li type='react'>React</li>
+                    <li type='xiaochengxu'>小程序</li>
                   </ul>
                 )
               }
@@ -67,11 +81,11 @@ export class NavTop extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  
+  ...state.course
 })
 
 const mapDispatchToProps = {
-  
+  ...action.course
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavTop));

@@ -46,14 +46,15 @@ class List extends Component {
 
   loadMore = () => {
     if (this.state.isLoding) return; // 防止未加载完成重复点击
-    let { queryList } = this.props;
+    let { queryList, courseType } = this.props;
     this.setState({
       isLoding: true
     })
     let { page } = this.props.courseData;
     page += 1;
     queryList({
-      page
+      page,
+      type: courseType
     });
   }
 
