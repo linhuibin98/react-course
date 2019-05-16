@@ -5,6 +5,9 @@ import action from '../../store/action';
 import { Link } from 'react-router-dom';
 
 class List extends Component {
+  state = {
+    isLoding: false
+  }
 
   componentDidMount() {
     let { carouselData, getCarouselData, courseData: { data }, queryList } = this.props;
@@ -14,6 +17,12 @@ class List extends Component {
     if (!data.length) {
       queryList();
     }
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      isLoding: false
+    })
   }
 
   queryType = () => {
@@ -33,6 +42,19 @@ class List extends Component {
         break;
     }
     return text;
+  }
+
+  loadMore = () => {
+    if (this.state.isLoding) return; // 防止未加载完成重复点击
+    let { queryList } = this.props;
+    this.setState({
+      isLoding: true
+    })
+    let { page } = this.props.courseData;
+    page += 1;
+    queryList({
+      page
+    });
   }
 
   render() {
@@ -86,7 +108,7 @@ class List extends Component {
             }
           </ul>
         </div>
-        <Button type='dashed'>加载更多</Button>
+        <Button type='dashed' loading={ this.state.isLoding } onClick={ this.loadMore }>加载更多</Button>
       </div>
     )
   }
