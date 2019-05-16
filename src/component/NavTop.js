@@ -27,11 +27,11 @@ export class NavTop extends Component {
 
   handleClick = (evt) => {
     if (evt.target.tagName === 'LI') {
-      let type = evt.target.getAttribute('type');
+      let type = evt.target.getAttribute('type');   // 获取在 目标li中的 type元素的值
       this.props.queryList({
         type,
-        page: 1,
-        flag: 'replace'
+        page: 1,          // 切换列表，page重置为 1 
+        flag: 'replace'  // 筛选列表，redux中状态为替换
       })
       this.setState({
         in: false
