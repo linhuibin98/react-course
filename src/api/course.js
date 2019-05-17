@@ -45,3 +45,28 @@ export function queryInfo(courseId) {
     }
   })
 }
+
+// 添加到购物车
+export function addShopCart(courseID) {
+  return axios.post('/store/add', {
+    courseID
+  })
+}
+
+// 从购物车移除
+export function removeShopCart(courseID) {
+  return axios.post('/store/remove', {
+    courseID
+  })
+}
+
+// 获取用户购物车信息(已支付 和 未支付)
+export function queryShopCart(state = 0) {
+  return axios.get('/store/info', {
+    params: {
+      state
+    }
+  })
+}
+
+

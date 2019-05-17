@@ -1,3 +1,7 @@
 export const GET_USER_INFO = 'GET_USER_INFO';
+
 export const GET_COURSE_CAROUSEL = 'GET_COURSE_CAROUSEL';
 export const COURSE_QUERY_LIST = 'COURSE_QUERY_LIST';
+
+export const COURSE_UNPAY = 'COURSE_UNPAY';
+export const COURSE_PAY = 'COURSE_PAY';

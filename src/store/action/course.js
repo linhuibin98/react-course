@@ -1,5 +1,5 @@
 import * as TYPES from '../action-types';
-import { homeCarouselData, queryCourseList } from '../../api/course';
+import { homeCarouselData, queryCourseList, queryShopCart,  } from '../../api/course';
 
 let course = {
   getCarouselData() {
@@ -24,6 +24,26 @@ let course = {
         result,
         flag,
         courseType: type
+      })
+    }
+  },
+
+  queryUnpay() {
+    return async dispatch => {
+      let result = await queryShopCart(0);
+      dispatch({
+        type: TYPES.COURSE_UNPAY,
+        result
+      })
+    }
+  },
+
+  queryPay() {
+    return async dispatch => {
+      let result = await queryShopCart(1);
+      dispatch({
+        type: TYPES.COURSE_PAY,
+        result
       })
     }
   }
