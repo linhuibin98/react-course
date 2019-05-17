@@ -31,9 +31,17 @@ export function homeCarouselData() {
 }
 
 // 获取课程列表信息
-
 export function queryCourseList(payload) {
   return axios.get('/course/list', {
     params: payload
+  })
+}
+
+// 获取课程详情
+export function queryInfo(courseId) {
+  return axios.get('/course/info', {
+    params: {
+      courseID: courseId
+    }
   })
 }
