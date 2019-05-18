@@ -20,12 +20,12 @@ export class Person extends Component {
   }
 
   async componentWillMount() {
-    let result = await checkLogin();
+    let result = await checkLogin();  // 检查是否登录
     let isLogin = parseFloat(result.code) === 0 ? true : false;
     this.setState({ isLogin });
   }
 
-  async componentWillReceiveProps() {
+  async componentWillReceiveProps() {   // 组件属性改变时，再次检查是否登录状态
     let result = await checkLogin();
     let isLogin = parseFloat(result.code) === 0 ? true : false;
     this.setState({ isLogin });

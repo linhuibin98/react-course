@@ -70,7 +70,7 @@ class List extends Component {
               carouselData.map((item, index) => {
                 let { pic, name } = item;
                 return (
-                  <img src={ pic } alt={ name } key={index} />
+                  <img src={ pic } alt={ name } key={ index } />
                 )
               })
             )
