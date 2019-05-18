@@ -1,16 +1,27 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Menu } from 'antd';
 
 export class MyCourse extends Component {
-  static propTypes = {
-    
+  state = {
+    current: 'unpay'
+  }
+
+  handleClick = ev => {
+    this.setState({
+      current: ev.key
+    })
   }
 
   render() {
     return (
       <div className='container'>
-        myCourse
+        <div className='menu-box'>
+          <Menu selectedKeys={ [this.state.current] } onClick={ this.handleClick } mode='horizontal'>
+            <Menu.Item key='unpay'>未支付</Menu.Item>
+            <Menu.Item key='pay'>已支付</Menu.Item>
+          </Menu>
+        </div>
       </div>
     )
   }
