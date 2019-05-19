@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Alert, Button } from 'antd';
+import { Alert, Button, message } from 'antd';
 import { connect } from 'react-redux';
 import action from '../../store/action';
-import { removeShopCart } from '../../api/course';
+import { removeShopCart, checkLogin } from '../../api/course';
 
 class Courseitem extends Component {
   static defaultProps = {
@@ -20,7 +20,7 @@ class Courseitem extends Component {
 
   removeUnpay = () => {
     let {data: { data }} = this.props;
-    data.map(async item => {
+    data.map( async item => {
       if (item.check) {
         await removeShopCart(item.id);
         this.props.queryUnpay();
@@ -34,8 +34,17 @@ class Courseitem extends Component {
     this.props.isChecked(courseId);
   }
 
-  checkedAll = ev => {
+  checkedAll = () => {
     this.props.isChecked(-1);
+  }
+
+  onSetter = async () => {
+    let result = await checkLogin();
+    if (result.code === 0) {
+      console.log('已经登录');
+      return
+    }
+    message.error('您还未登录, 请登陆后购买')
   }
 
   render() {
@@ -78,7 +87,7 @@ class Courseitem extends Component {
             <div className='totalbox'>总计：<span className='total'>6000</span></div>
             <div className='btn-list'>
               <Button type='danger' size='small' onClick={ this.removeUnpay }>移除</Button>
-              <Button type='primary'>结算</Button>
+              <Button type='primary' onClick={ this.onSetter }>结算</Button>
             </div>
         </div>
           ) : ''
