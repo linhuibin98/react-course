@@ -46,6 +46,13 @@ let course = {
         result
       })
     }
+  },
+
+  isChecked(courseId) {
+    return {
+      type: TYPES.UNPAY_CHECKED,
+      courseId
+    }
   }
 };
 

@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Alert, Button } from 'antd';
+import { connect } from 'react-redux';
+import action from '../../store/action';
+import { removeShopCart } from '../../api/course';
 
-export default class courseitem extends Component {
+class Courseitem extends Component {
   static defaultProps = {
     data: {},
     isUnpay: false
@@ -11,25 +14,42 @@ export default class courseitem extends Component {
 
   static propTypes = {
     data: PropTypes.object,
-    isUnpay: PropTypes.bool
+    isUnpay: PropTypes.bool,
+    checkAll: PropTypes.bool
   }
 
-  removeUnpay = ev => {
-    
+  removeUnpay = () => {
+    let {data: { data }} = this.props;
+    data.map(async item => {
+      if (item.check) {
+        await removeShopCart(item.id);
+        this.props.queryUnpay();
+      }
+      return item;
+    })
+  }
+
+  onChecked = ev => {
+    let courseId = ev.target.getAttribute('courseid');
+    this.props.isChecked(courseId);
+  }
+
+  checkedAll = ev => {
+    this.props.isChecked(-1);
   }
 
   render() {
-    let { data: {data, title, isUnpay} } = this.props;
+    let { data: {data, title, isUnpay, checkAll} } = this.props;
     return (
       <div>
         <ul className='cart-list'>
           {
             !data.length ? (<Link to='/home/list'><Alert type='warning' message={ title } /></Link>) : (
               data.map((item, index) => {
-                let { id, name, pic, dec, price } = item;
+                let { id, name, pic, dec, price, check } = item;
                 return (
                   <li key={ index }>
-                    <input type='checkbox' className='list-check' />
+                    <input type='checkbox' checked={ check } className='list-check' courseid={ id } onChange={ this.onChecked }  />
                     <Link to={{
                       pathname: '/home/detail',
                       search: `?courseId=${id}`
@@ -54,7 +74,7 @@ export default class courseitem extends Component {
         {
           isUnpay && data.length ? (
           <div className='manage'>
-            <div className='check'>全选<input type='checkbox' className='checkedAll' /></div>
+            <div className='check'>全选<input type='checkbox' className='checkedAll' checked={ checkAll } onChange={ this.checkedAll } /></div>
             <div className='totalbox'>总计：<span className='total'>6000</span></div>
             <div className='btn-list'>
               <Button type='danger' size='small' onClick={ this.removeUnpay }>移除</Button>
@@ -67,3 +87,6 @@ export default class courseitem extends Component {
     )
   }
 }
+
+
+export default connect(null, action.course)(Courseitem);

@@ -10,12 +10,22 @@ let INIT_STATE = {
   },
   shopCart: {
     unPay: [],
-    pay: []
+    pay: [],
+    checkedAll: true
   }
 };
 
 export default function course(state = INIT_STATE, action) {
   state = JSON.parse(JSON.stringify(state));
+  let isAllChecked = (data) => {
+    for(let i = 0; i < data.length; i++) {
+      if (!data[i].check) {
+        state.shopCart.checkedAll = false;
+        return;
+      }
+    }
+    state.shopCart.checkedAll = true;
+  } 
   let { payload } = action;
   switch (action.type) {
     case TYPES.GET_COURSE_CAROUSEL:   // 获取轮播图数据
@@ -40,12 +50,34 @@ export default function course(state = INIT_STATE, action) {
       break;
     case TYPES.COURSE_UNPAY:      // 获取未支付订单
       if (parseFloat(action.result.code) === 0) {
-        state.shopCart.unPay = action.result.data;
+        state.shopCart.unPay = action.result.data.map(item => {
+          item.check = true;
+          return item;
+        })
       }
       break;
     case TYPES.COURSE_PAY:      // 获取已支付订单
       if (parseFloat(action.result.code) === 0) {
         state.shopCart.pay = action.result.data;
+      }
+      break;
+    case TYPES.UNPAY_CHECKED:
+      let { courseId } = action;
+      if (courseId === -1) {
+        state.shopCart.checkedAll = !state.shopCart.checkedAll;
+        state.shopCart.unPay = state.shopCart.unPay.map(item => {
+          item.check = state.shopCart.checkedAll;
+          return item;
+        })
+      } else {
+        state.shopCart.unPay = state.shopCart.unPay.map(item => {
+          if (parseFloat(item.id) === parseFloat(courseId)) {
+            item.check = !item.check;
+            return item;
+          }
+          return item;
+        })
+        isAllChecked(state.shopCart.unPay);
       }
       break;
     default:

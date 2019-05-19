@@ -9,7 +9,8 @@ class unPay extends Component {
     data = {
       data,
       title: '购物车中暂无课程,快去添加吧！',
-      isUnpay: true
+      isUnpay: true,
+      checkAll: this.props.shopCart.checkedAll
     }
     return (
       <div className='course-list'>
