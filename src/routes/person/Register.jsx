@@ -5,17 +5,12 @@ import {
   Input,
   Tooltip,
   Icon,
-  Cascader,
-  Select,
-  Row,
-  Col,
-  Checkbox,
   Button,
-  AutoComplete,
 } from 'antd';
 
 import md5 from 'blueimp-md5';
 import { userRegister } from '../../api/course';
+import action from '../../store/action';
 
 
 export class Register extends Component {
@@ -28,6 +23,8 @@ export class Register extends Component {
         values.password = md5(values.password);
         let result = await userRegister(values);
         if (parseFloat(result.code) === 0) {
+          this.props.queryUnpay();
+          this.props.queryPay();
           this.props.history.push('/person/info');
         }
       }
@@ -102,7 +99,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  
+  ...action.course
 }
 
 const WrappedRegistrationForm = Form.create({ name: 'register' })(Register);

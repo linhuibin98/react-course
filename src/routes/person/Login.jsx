@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  Form, Icon, Input, Button, Checkbox, Modal
+  Form, Icon, Input, Button, Checkbox, message
 } from 'antd';
 import { Link } from 'react-router-dom';
 
@@ -9,30 +9,15 @@ import md5 from 'blueimp-md5';
 import { login } from '../../api/course';
 import action from '../../store/action';
 
+message.config({
+  top: 50,
+  duration: 1,
+  maxCount: 3,
+});
+
 
 export class Login extends Component {
 
-   loginTip = (msg) => {
-    let secondsToGo = 5;
-    
-    const modal = Modal.success({
-      title: msg.title,
-      content: msg.content,
-    });
-
-    const timer = setInterval(() => {
-      secondsToGo -= 1;
-      modal.update({
-        content: `该提示将在${secondsToGo}s后自动关闭`,
-      });
-    }, 1000);
-
-    setTimeout(() => {
-      this.props.history.push('/person');
-      clearInterval(timer);
-      modal.destroy();
-    }, secondsToGo * 1000);
-  }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -47,16 +32,13 @@ export class Login extends Component {
 
         if (parseFloat(result.code) === 0) {
           this.props.queryUserInfo();
-          this.loginTip({
-            title: '登录成功',
-            content: '即将跳转...'
-          })
+          message.success('登录成功');
+          this.props.queryUnpay();
+          this.props.queryPay();
+          this.props.history.push('/person/info');
           return;
         }
-        this.loginTip({
-          title: '登录失败',
-          content: '请再次输入账号密码'
-        })
+        message.error('登录失败, 账号或密码错误...请重新输入');
       }
     });
   }
@@ -101,7 +83,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  ...action.person
+  ...action.person,
+  ...action.course
 }
 
 const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(Login);

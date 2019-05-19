@@ -26,6 +26,8 @@ export class Info extends Component {
           header={<div style={{ textAlign: 'center' }}>个人中心</div>}
           footer={<Button type="danger" size='large' style={{ width: '100%', height: '100%' }} onClick={async () => {
             await exitLogin();
+            this.props.queryUnpay();
+            this.props.queryPay();
             this.props.history.push('/person');
           }}>退出登录</Button>}
           bordered
@@ -46,4 +48,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps, action.person)(withRouter(Info))
+export default connect(mapStateToProps, {...action.person, ...action.course})(withRouter(Info))

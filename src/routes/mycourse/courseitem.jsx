@@ -24,7 +24,7 @@ export default class courseitem extends Component {
       <div>
         <ul className='cart-list'>
           {
-            !data.length ? (<Alert type='warning' message={ title } />) : (
+            !data.length ? (<Link to='/home/list'><Alert type='warning' message={ title } /></Link>) : (
               data.map((item, index) => {
                 let { id, name, pic, dec, price } = item;
                 return (
