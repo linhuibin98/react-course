@@ -8,10 +8,11 @@ class unPay extends Component {
     let data = this.props.shopCart.unPay;
     data = {
       data,
-      title: '购物车中暂无课程,快去添加吧！'
+      title: '购物车中暂无课程,快去添加吧！',
+      isUnpay: true
     }
     return (
-      <div className='unpay-list'>
+      <div className='course-list'>
           <CourseItem data={ data } />
       </div>
     )

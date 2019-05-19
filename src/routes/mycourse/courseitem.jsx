@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Alert } from 'antd';
- 
+import { Alert, Button } from 'antd';
+
 export default class courseitem extends Component {
   static defaultProps = {
-    data: {}
+    data: {},
+    isUnpay: false
   }
 
   static propTypes = {
-    data: PropTypes.object
+    data: PropTypes.object,
+    isUnpay: PropTypes.bool
+  }
+
+  removeUnpay = ev => {
+    
   }
 
   render() {
-    let { data: {data, title} } = this.props;
+    let { data: {data, title, isUnpay} } = this.props;
     return (
       <div>
         <ul className='cart-list'>
@@ -23,6 +29,7 @@ export default class courseitem extends Component {
                 let { id, name, pic, dec, price } = item;
                 return (
                   <li key={ index }>
+                    <input type='checkbox' className='list-check' />
                     <Link to={{
                       pathname: '/home/detail',
                       search: `?courseId=${id}`
@@ -44,6 +51,18 @@ export default class courseitem extends Component {
             )
           }
         </ul>
+        {
+          isUnpay && data.length ? (
+          <div className='manage'>
+            <div className='check'>全选<input type='checkbox' className='checkedAll' /></div>
+            <div className='totalbox'>总计：<span className='total'>6000</span></div>
+            <div className='btn-list'>
+              <Button type='danger' size='small' onClick={ this.removeUnpay }>移除</Button>
+              <Button type='primary'>结算</Button>
+            </div>
+        </div>
+          ) : ''
+        }
       </div>
     )
   }
