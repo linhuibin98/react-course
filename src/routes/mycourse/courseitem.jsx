@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Alert, Button, message } from 'antd';
 import { connect } from 'react-redux';
 import action from '../../store/action';
-import { removeShopCart, checkLogin } from '../../api/course';
+import { removeShopCart, checkLogin, payShopCart } from '../../api/course';
 
 class Courseitem extends Component {
   static defaultProps = {
@@ -41,8 +41,19 @@ class Courseitem extends Component {
   onSetter = async () => {
     let result = await checkLogin();
     if (result.code === 0) {
-      console.log('已经登录');
-      return
+      let {data: { data }} = this.props;
+      data.map( async item => {
+        if (item.check) {
+          await payShopCart({
+            courseID: item.id,
+            storeID: item.storeID
+          });
+        }
+        return item;
+      });
+      this.props.queryUnpay();
+      this.props.queryPay();
+      return;
     }
     message.error('您还未登录, 请登陆后购买')
   }
@@ -58,7 +69,9 @@ class Courseitem extends Component {
                 let { id, name, pic, dec, price, check } = item;
                 return (
                   <li key={ index }>
-                    <input type='checkbox' checked={ check } className='list-check' courseid={ id } onChange={ this.onChecked }  />
+                    {
+                      isUnpay ? <input type='checkbox' checked={ check } className='list-check' courseid={ id } onChange={ this.onChecked } /> : null
+                    }
                     <Link to={{
                       pathname: '/home/detail',
                       search: `?courseId=${id}`
@@ -90,7 +103,7 @@ class Courseitem extends Component {
               <Button type='primary' onClick={ this.onSetter }>结算</Button>
             </div>
         </div>
-          ) : ''
+          ) : null
         }
       </div>
     )

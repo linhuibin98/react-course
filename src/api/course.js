@@ -60,6 +60,14 @@ export function removeShopCart(courseID) {
   })
 }
 
+// 课程支付
+export function payShopCart({ courseID, storeID }) { 
+  return axios.post('/store/pay', {
+    courseID,
+    storeID
+  })
+ }
+
 // 获取用户购物车信息(已支付 和 未支付)
 export function queryShopCart(state = 0) {
   return axios.get('/store/info', {
